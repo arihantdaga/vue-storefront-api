@@ -1,5 +1,34 @@
 Same like from the documentation
 
+#### Step 1
+calling start.sh 
+```
+docker-compose -f docker-compose.yml -f docker-compose.nodejs.yml up -d
+docker-compose -f docker-compose.magento.yml up -d
+```
+
+#### Step 2 (Temporary data)
+```
+docker exec -it vue-storefront-api_app_1 yarn restore
+docker exec -it vue-storefront-api_app_1 yarn migrate
+```
+
+### Setting Up Magento on Lightsail 
+- Lightsail create Magento app+os -> It can take upto 5 Mins. 
+- Default admin credentials - user, for password do in ~ directory of the new instance - cat  bitnami_application_password . (ex. IEIebFUpB6XR) 
+- Magento marketplace credentials 
+```
+username: "9891718dcb3d1333af392fb8d90b1655"
+password: "44a3114353871afc25edc8c2da7560b4"
+```
+- Install Magento native module - https://github.com/DivanteLtd/magento2-vsbridge-indexer
+```
+sudo composer config repositories.divante vcs https://github.com/DivanteLtd/magento2-vsbridge-indexer
+sudo composer require divante/magento2-vsbridge-indexer:dev-master
+```
+
+
+
 ### Setting Up Magento
 - docker-compose-up the image. 
 - Install Sample Data
